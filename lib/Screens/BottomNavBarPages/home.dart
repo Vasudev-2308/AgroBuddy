@@ -21,7 +21,7 @@ class Home extends StatelessWidget {
            width: MediaQuery.of(context).size.width*0.85,
            child: Divider(height: 20, thickness: 3, )),
         Padding(
-          padding: EdgeInsets.all(8.0),
+          padding: EdgeInsets.all(16.0),
           child: Text("Farm Updates", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 33),),
         ),
         FeedCard(content: "Cow Entered",),
