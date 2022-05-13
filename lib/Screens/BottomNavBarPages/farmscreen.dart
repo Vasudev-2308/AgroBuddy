@@ -70,7 +70,7 @@ class Farm extends StatelessWidget {
                   title: Center(
                       child: Text(
                     "Turn on Camera",
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.white),
                   )),
                 ),
               ),
@@ -87,12 +87,22 @@ class Farm extends StatelessWidget {
                   title: Center(
                       child: Text("Turn off Camera",
                           style: TextStyle(
-                              fontSize: 22,
+                              fontSize: 20,
                               fontWeight: FontWeight.w600,
                               color: Colors.white))),
                 ),
               ),
             ),
+          SizedBox(
+            height: 20,
+          ),
+            Center(
+              child: Text(
+                "Made with ❤️by Team Agrobuddy",
+                style: TextStyle(color: Colors.grey.shade600),
+              ),
+              
+            )
           ]),
     );
   }

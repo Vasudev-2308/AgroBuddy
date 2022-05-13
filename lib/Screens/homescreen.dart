@@ -4,6 +4,7 @@ import 'package:agro_buddy/Screens/BottomNavBarPages/farmscreen.dart';
 import 'package:agro_buddy/Screens/BottomNavBarPages/home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_switch/flutter_switch.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -13,9 +14,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final GlobalKey<ScaffoldState>  _scaffoldKey = GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   int _selectedIndex = 0;
   final List<Widget> _pages = [Home(), Farm()];
+  bool status0 = false;
+  bool status1 = false;
 
   onTap(int index) {
     setState(() {
@@ -48,35 +51,74 @@ class _HomeScreenState extends State<HomeScreen> {
       body: _pages.elementAt(_selectedIndex),
       endDrawer: SafeArea(
         child: Drawer(
-              elevation: 10.0,
-              shape: const RoundedRectangleBorder(
+            elevation: 10.0,
+            shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(30),
                   bottomLeft: Radius.circular(30)),
             ),
-              
-              child: Container(
-                margin: EdgeInsets.all(20),
-                child: ListView(
-        children: <Widget>[
-          ListTile(
-            leading: Icon(Icons.shopping_cart),
-            title: Text('Checkout'),
-            onTap: (){
-                
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.report),
-            title: Text('Transactions'),
-            onTap: (){
-                
-            },
-          ),
-        ]
-          ),
-              )
-            ),
+            child: Container(
+              margin: EdgeInsets.all(20),
+              child: ListView(children: <Widget>[
+                Center(
+                  child: Text(
+                    "Settings",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                  ),
+                ),
+                Divider(
+                  thickness: 2,
+                  height: 20,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("Push Notifications"),
+                    FlutterSwitch(
+                      width: 70.0,
+                      height: 34.0,
+                      valueFontSize: 15.0,
+                      toggleSize: 22.0,
+                      value: status0,
+                      borderRadius: 30.0,
+                      padding: 8.0,
+                      showOnOff: true,
+                      onToggle: (val) {
+                        setState(() {
+                          status0 = val;
+                        });
+                      },
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text("App Updates"),
+                    FlutterSwitch(
+                      width: 70.0,
+                      height: 34.0,
+                      valueFontSize: 15.0,
+                      toggleSize: 22.0,
+                      value: status1,
+                      borderRadius: 30.0,
+                      showOnOff: true,
+                      onToggle: (val) {
+                        setState(() {
+                          status1 = val;
+                        });
+                      },
+                    ),
+                  ],
+                ),
+              ]),
+            )),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const [
