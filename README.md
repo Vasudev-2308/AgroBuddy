@@ -1,10 +1,16 @@
-# agro_buddy
+# AGROBUDDY
 
-A new Flutter project.
+Agrobuddy is an Application built on top of the EdgeAI-Paradigm where we are integrating IoT and Flutter and Controlling hardware devices via our Application. 
+
+The App is building with a good pace 🔥
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+To Start Developing along and Contributing, 
+
+Fork/ Clone the repository, make changes and create PR's. 
+
+All Valid PR's shall be Merged
 
 A few resources to get you started if this is your first Flutter project:
 
