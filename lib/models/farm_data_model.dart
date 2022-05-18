@@ -1,24 +1,41 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
-class FarmData extends ChangeNotifier {
-  int? _temp;
-  int? _humid;
-  bool? _oE;
-  bool? _fS;
-  bool? _mS;
+import '../Logic/temp_and_humid.dart';
 
-  int get temperature => _temp!;
-  int get humidity => _humid!;
+
+class FarmData extends ChangeNotifier {
+  final String host = "http://192.168.0.105:8080";
+  double? _temp = 0;
+  double? _humid = 0;
+  bool? _oE = false;
+  bool? _fS = false;
+  bool? _mS = false;
+
+  // ignore: prefer_typing_uninitialized_variables
+  var data;
+
+  fetchDataFromJson() async {
+    data = await fetchData(host);
+    var decoded = jsonDecode(data);
+    setTemperature(decoded['tempr']);
+    setHumidity(decoded['humid']);
+
+  }
+
+  double get temperature => _temp!;
+  double get humidity => _humid!;
   bool get objectEnteredStatus => _oE!;
   bool get fireStatus => _fS!;
   bool get moistureStatus => _mS!;
 
-  void setTemperature(int tempValue) {
+  void setTemperature(double tempValue) {
     _temp = tempValue;
     notifyListeners();
   }
 
-  void setHumidity(int humidValue) {
+  void setHumidity(double humidValue) {
     _humid = humidValue;
     notifyListeners();
   }
@@ -27,10 +44,12 @@ class FarmData extends ChangeNotifier {
     _oE = status;
     notifyListeners();
   }
+
   void setfireStatus(bool status) {
     _fS = status;
     notifyListeners();
   }
+
   void setMoistureStatus(bool status) {
     _mS = status;
     notifyListeners();

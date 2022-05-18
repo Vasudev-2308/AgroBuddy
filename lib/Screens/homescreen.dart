@@ -1,10 +1,12 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:agro_buddy/Models/farm_data_model.dart';
 import 'package:agro_buddy/Screens/BottomNavBarPages/farmscreen.dart';
 import 'package:agro_buddy/Screens/BottomNavBarPages/home.dart';
 import 'package:agro_buddy/Screens/settings_drawer_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -15,9 +17,19 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      var providerInstance = Provider.of<FarmData>(context, listen: false);
+      providerInstance.fetchDataFromJson();
+    });
+  }
+
   int _selectedIndex = 0;
   final List<Widget> _pages = [Home(), Farm()];
- 
 
   onTap(int index) {
     setState(() {

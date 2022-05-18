@@ -7,11 +7,11 @@ class ScrollCards extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 250,
       child: ListView(
         scrollDirection: Axis.horizontal,
-        children: [
+        children: const [
           TempandHumidCard(),
           MoistureandFireCard(),
         ],

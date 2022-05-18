@@ -8,7 +8,7 @@ class FeedCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: TextButton(
-        onPressed: () => print("Hello World"),
+        onPressed: null,
         child:  ListTile(
           leading: const Icon(Icons.location_city),
           title: Text(content,

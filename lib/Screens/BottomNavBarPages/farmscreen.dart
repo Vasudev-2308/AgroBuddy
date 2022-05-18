@@ -1,7 +1,8 @@
 // ignore_for_file: prefer_const_constructors
+import 'package:agro_buddy/Models/farm_data_model.dart';
 import 'package:agro_buddy/UI/scroll_cards.dart';
-import 'package:agro_buddy/UI/temp_and_humid_card.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:toast/toast.dart';
 
 class Farm extends StatelessWidget {
@@ -9,6 +10,8 @@ class Farm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var providerInstance = Provider.of<FarmData>(context);
+    providerInstance.fetchDataFromJson();
     ToastContext().init(context);
     return SingleChildScrollView(
       child: Column(
