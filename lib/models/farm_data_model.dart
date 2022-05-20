@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 import '../Logic/temp_and_humid.dart';
 
-
 class FarmData extends ChangeNotifier {
   final String host = "http://192.168.0.105:8080";
   double? _temp = 0;
@@ -17,11 +16,18 @@ class FarmData extends ChangeNotifier {
   var data;
 
   fetchDataFromJson() async {
+//flame_status
+//humidity
+//moisture_status
+//motion_status
+//temperature
     data = await fetchData(host);
     var decoded = jsonDecode(data);
-    setTemperature(decoded['tempr']);
-    setHumidity(decoded['humid']);
-
+    setTemperature(decoded['temperature']);
+    setHumidity(decoded['humidity']);
+    setfireStatus(decoded['flame_status']);
+    setMoistureStatus(decoded['moisture_status']);
+    setObjectStatus(decoded['motion_status']);
   }
 
   double get temperature => _temp!;
