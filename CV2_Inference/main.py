@@ -5,30 +5,27 @@ cv2.namedWindow("preview")
 
 cam = cv2.VideoCapture(0)
 
-cam.set(3, 640)
-cam.set(4, 480)
 
-
-thresh = 0.60
+thresh = 0.5
 classNames = []
 
-classFile = "objects.names"
+classFile = "labels.txt"
 
 with open(classFile,'rt') as f:
-    classNames= f.read().rstrip('\n').split('\n')
+    classNames=[line.rstrip() for line in f]
 
 
-configPath = "ssd_config_file.pbtxt"
-weightsPath = "saved_Model.pb"
 
-net = cv2.dnn_DetectionModel(weightsPath, configPath)
-net.setPreferableBackend(cv2.dnn.DNN_BACKEND_OPENCV)
-net.setPreferableTarget(cv2.dnn.DNN_TARGET_CPU)
+configPath = "ssd_mobilenet_v3_large_coco_2020_01_14.pbtxt"
+weightsPath = "frozen_inference_graph.pb"
 
-net.setInputSize(320, 320)
-net.setInputScale(1.0 / 127.5)
-net.setInputMean((127.5, 127.5, 127.5))
-net.setInputSwapRB(True)
+model = cv2.dnn_DetectionModel(weightsPath, configPath)
+
+
+model.setInputSize(320, 320)
+model.setInputScale(1.0 / 127.5)
+model.setInputMean((127.5, 127.5, 127.5))
+model.setInputSwapRB(True)
 
 
 
@@ -37,15 +34,21 @@ while True:
     if not ret:
         break
     
-    classIds, confidences, bboxes = net.detect(img, confThreshold=thresh)
-    if len(classIds) != 0:
-
-        for classId, confidence, box in zip(classIds.flatten(), confidences.flatten(), bboxes):
-            label = str(classNames[classId-1])
+    classIds, confidences, boxes = model.detect(img, confThreshold=thresh)
+    
+    if len(classIds) > 0:
+        font_scale = 2
+        font = cv2.FONT_HERSHEY_PLAIN
+        
+        for classIdx, conf, bbox in zip(classIds.flatten(), confidences.flatten(), boxes):
             
-            cv2.rectangle(img, box, (0, 255, 0), 2)
-            print(classNames[classId-1], confidence)
-            cv2.putText(img, label.upper(),(box[0]+10, box[1]+30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,255,0),2)
+            try:
+                cv2.rectangle(img, bbox, (0, 255, 0), 2)
+                #print(classIdx)
+                cv2.putText(img, classNames[classIdx] , (bbox[0]+10, bbox[1]+30), font, font_scale, (0, 255, 0), thickness=2)
+            except IndexError:
+                if classIdx > len(classNames):
+                    cv2.putText(img, "unknown" , (bbox[0]+10, bbox[1]+30), font, font_scale, (0, 0, 255), thickness=2)
 
     k = cv2.waitKey(1)
     if k == ord('q'):
