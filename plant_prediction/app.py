@@ -42,7 +42,7 @@ def predict():
     prediction = model.predict(final_features)
     output = prediction[0]
 
-    return render_template('basic.html', prediction_text='Crop will be {}'.format(output))
+    return render_template('basic.html', prediction_text='Crop will be {}'.format(output.upper()))
 
 
 
