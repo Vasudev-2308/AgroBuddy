@@ -11,13 +11,13 @@
         <h1>Predict Crops to be Grown </h1>
 
         <form method="post" action="{{url_for('predict')}}">
-            <input type="number" step="0.1" placeholder="N">
-            <input type="number" step="0.1" placeholder="P">
-            <input type="number" step="0.1" placeholder="K">
-            <input type="number" step="0.1" placeholder="Temperature">
-            <input type="number" step="0.1" placeholder="Humidity">
-            <input type="number" step="0.1" placeholder="pH">
-            <input type="number" step="0.1" placeholder="Rainfall">
+            <input type="number" name="n_val" step="0.1" placeholder="N">
+            <input type="number" name="p_val" step="0.1" placeholder="P">
+            <input type="number" name="k_val" step="0.1" placeholder="K">
+            <input type="number" name="temp_val" step="0.1" placeholder="Temperature">
+            <input type="number" name="humid_val" step="0.1" placeholder="Humidity">
+            <input type="number" name="ph_val" step="0.1" placeholder="pH">
+            <input type="number" name="rf_val" step="0.1" placeholder="Rainfall">
 
             <button type="submit">Predict</button>
 
