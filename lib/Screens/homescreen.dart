@@ -18,10 +18,11 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
+  PageController? _pageController;
   @override
   void initState() {
     super.initState();
+    _pageController = PageController();
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       var providerInstance = Provider.of<FarmData>(context, listen: false);
@@ -29,19 +30,27 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _pageController!.dispose();
+    super.dispose();
+  }
+
   int _selectedIndex = 0;
-  final List<Widget> _pages = [Home(), RecommenderScreen(), Farm()];
 
   onTap(int index) {
     setState(() {
       _selectedIndex = index;
+      _pageController!.animateToPage(index,
+          duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: ()=> FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
@@ -62,7 +71,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 ))
           ],
         ),
-        body: _pages.elementAt(_selectedIndex),
+        body: PageView(
+          controller: _pageController,
+          children: [
+            Home(), RecommenderScreen(), Farm()],),
         endDrawer: DrawerWidget(),
         bottomNavigationBar: BottomNavigationBar(
           items: const [

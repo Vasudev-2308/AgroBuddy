@@ -1,20 +1,26 @@
-import 'package:agro_buddy/UI/npk_row.dart';
-import 'package:agro_buddy/UI/ph_and_rain_row.dart';
-import 'package:agro_buddy/UI/temp_and_humid_row.dart';
-import 'package:flutter/cupertino.dart';
+// ignore_for_file: non_constant_identifier_names
+
+import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
+import '../../Models/crop_recommender_model.dart';
+
+// ignore: must_be_immutable
 class RecommenderScreen extends StatelessWidget {
-  const RecommenderScreen({Key? key}) : super(key: key);
-  void hideKeyboard(BuildContext context) {
-    FocusScopeNode currentFocus = FocusScope.of(context);
-    if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
-      FocusManager.instance.primaryFocus?.unfocus();
-    }
-  }
+  RecommenderScreen({Key? key}) : super(key: key);
+
+  TextEditingController n_Val = TextEditingController();
+  TextEditingController p_Val = TextEditingController();
+  TextEditingController k_Val = TextEditingController();
+  TextEditingController temp_Val = TextEditingController();
+  TextEditingController humid_Val = TextEditingController();
+  TextEditingController ph_Val = TextEditingController();
+  TextEditingController rf_val = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    var cropRecommenderInstance = Provider.of<CropRecommender>(context);
+    String? cropName = cropRecommenderInstance.cropName;
     return SingleChildScrollView(
       keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
       child: Column(
@@ -27,8 +33,10 @@ class RecommenderScreen extends StatelessWidget {
                   "Crop Recommender",
                   style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                 )),
-
-            Text("RICE", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 38),),
+            Text(
+              cropName!.isEmpty?"Crop":cropName,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 38),
+            ),
             Container(
               margin: const EdgeInsets.only(left: 20, right: 20),
               child: const Divider(
@@ -48,24 +56,274 @@ class RecommenderScreen extends StatelessWidget {
                     fontSize: 18,
                   ),
                 )),
-            const  NPK_Row(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.3,
+                  child: Column(
+                    children: [
+                      const Text(
+                        "Nitrogen",
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(top: 10),
+                        decoration: BoxDecoration(
+                            color: Colors.grey.shade400,
+                            borderRadius: BorderRadius.circular(10)),
+                        width: MediaQuery.of(context).size.width * 0.3,
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              left: 15, right: 15, top: 5),
+                          child: TextFormField(
+                            controller: n_Val,
+                            textAlign: TextAlign.center,
+                            textInputAction: TextInputAction.done,
+                            keyboardType: const TextInputType.numberWithOptions(
+                                decimal: true, signed: false),
+                            decoration: const InputDecoration(
+                              border: InputBorder.none,
+                              hintText: "N",
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.3,
+                  child: Column(
+                    children: [
+                      const Text(
+                        "Phosphorus",
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(top: 10),
+                        decoration: BoxDecoration(
+                            color: Colors.grey.shade400,
+                            borderRadius: BorderRadius.circular(10)),
+                        width: MediaQuery.of(context).size.width * 0.3,
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              left: 15, right: 15, top: 5),
+                          child: TextFormField(
+                            controller: p_Val,
+                            textAlign: TextAlign.center,
+                            keyboardType: const TextInputType.numberWithOptions(
+                                decimal: true, signed: false),
+                            decoration: const InputDecoration(
+                              border: InputBorder.none,
+                              hintText: "P",
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.3,
+                  child: Column(
+                    children: [
+                      const Text(
+                        "Potassium",
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(top: 10),
+                        decoration: BoxDecoration(
+                            color: Colors.grey.shade400,
+                            borderRadius: BorderRadius.circular(10)),
+                        width: MediaQuery.of(context).size.width * 0.3,
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              left: 15, right: 15, top: 5),
+                          child: TextFormField(
+                            controller: k_Val,
+                            textAlign: TextAlign.center,
+                            keyboardType: const TextInputType.numberWithOptions(
+                                decimal: true, signed: false),
+                            decoration: const InputDecoration(
+                              border: InputBorder.none,
+                              hintText: "K",
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
             const SizedBox(
               height: 20,
             ),
-            const TempandHumidRow(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.4,
+                  child: Column(
+                    children: [
+                      const Text(
+                        "Temperature ℃",
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(top: 10),
+                        decoration: BoxDecoration(
+                            color: Colors.grey.shade400,
+                            borderRadius: BorderRadius.circular(10)),
+                        width: MediaQuery.of(context).size.width * 0.4,
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              left: 15, right: 15, top: 5),
+                          child: TextFormField(
+                            controller: temp_Val,
+                            textAlign: TextAlign.center,
+                            keyboardType: const TextInputType.numberWithOptions(
+                                decimal: true, signed: false),
+                            decoration: const InputDecoration(
+                              border: InputBorder.none,
+                              hintText: "Temp",
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.4,
+                  child: Column(
+                    children: [
+                      const Text(
+                        "Humidity %",
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(top: 10),
+                        decoration: BoxDecoration(
+                            color: Colors.grey.shade400,
+                            borderRadius: BorderRadius.circular(10)),
+                        width: MediaQuery.of(context).size.width * 0.4,
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              left: 15, right: 15, top: 5),
+                          child: TextFormField(
+                            controller: humid_Val,
+                            textAlign: TextAlign.center,
+                            keyboardType: const TextInputType.numberWithOptions(
+                                decimal: true, signed: false),
+                            decoration: const InputDecoration(
+                              border: InputBorder.none,
+                              hintText: "Humid",
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
             const SizedBox(
               height: 20,
             ),
-            const PHandRainfallRow(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.4,
+                  child: Column(
+                    children: [
+                      const Text(
+                        "PH Value",
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(top: 10),
+                        decoration: BoxDecoration(
+                            color: Colors.grey.shade400,
+                            borderRadius: BorderRadius.circular(10)),
+                        width: MediaQuery.of(context).size.width * 0.4,
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              left: 15, right: 15, top: 5),
+                          child: TextFormField(
+                            controller: ph_Val,
+                            textAlign: TextAlign.center,
+                            keyboardType: const TextInputType.numberWithOptions(
+                                decimal: true, signed: false),
+                            decoration: const InputDecoration(
+                              border: InputBorder.none,
+                              hintText: "PH",
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.4,
+                  child: Column(
+                    children: [
+                      const Text(
+                        "Rainfall",
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(top: 10),
+                        decoration: BoxDecoration(
+                            color: Colors.grey.shade400,
+                            borderRadius: BorderRadius.circular(10)),
+                        width: MediaQuery.of(context).size.width * 0.4,
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              left: 15, right: 15, top: 5),
+                          child: TextFormField(
+                            controller: rf_val,
+                            textAlign: TextAlign.center,
+                            keyboardType: const TextInputType.numberWithOptions(
+                                decimal: true, signed: false),
+                            decoration: const InputDecoration(
+                              border: InputBorder.none,
+                              hintText: "rainfall (mm)",
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
             const SizedBox(
               height: 30,
             ),
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.9,
-              child: const FloatingActionButton.extended(
+              child: FloatingActionButton.extended(
                   backgroundColor: Colors.green,
-                  onPressed: null,
-                  label: Text("Submit")),
+                  onPressed: () {
+                    double n = double.parse(n_Val.text);
+                    double p = double.parse(p_Val.text);
+                    double k = double.parse(k_Val.text);
+                    double temp = double.parse(temp_Val.text);
+                    double hum = double.parse(humid_Val.text);
+                    double ph = double.parse(ph_Val.text);
+                    double rf = double.parse(rf_val.text);
+
+                    cropRecommenderInstance.fillValues(
+                        n, p, k, temp, hum, ph, rf);
+
+                    cropRecommenderInstance.setCropName();
+                  },
+                  label: const Text("Submit")),
             )
           ]),
     );

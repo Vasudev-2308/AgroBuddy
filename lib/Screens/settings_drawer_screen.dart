@@ -1,5 +1,3 @@
-//
-
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:lottie/lottie.dart';
@@ -84,7 +82,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                 ],
               ),
 
-              Lottie.network("https://assets7.lottiefiles.com/packages/lf20_poqmycwy.json")
+              Lottie.asset('assets/animations/loading_animation.json')
             ]),
           )),
     );

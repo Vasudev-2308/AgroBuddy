@@ -1,48 +1,51 @@
-from flask import Flask, render_template, request
+import json
+
+from flask import Flask,jsonify, request
 import pickle
 import numpy as np
 
 app = Flask(__name__)
 model = pickle.load(open('KNN_model_crop_prediction.pkl', 'rb'))
 
-@app.route('/')
-def home():
-    return render_template('basic.html')
 
-
-@app.route('/predict', methods=['POST'])
+response = ''
+@app.route('/predict', methods=['POST', 'GET'])
 def predict():
-
+    global response
     features = []
-    n_val = request.form.get('n_val')
-    p_val = request.form.get('p_val')
-    k_val = request.form.get('k_val')
-    temp_val = request.form.get('temp_val')
-    hum_val = request.form.get('humid_val')
-    ph_val = request.form.get('ph_val')
-    rf_val = request.form.get('rf_val')
+    if request.method == 'POST':
+        print("Got VALUES")
+        request_data = request.data
+        request_data = json.loads(request_data.decode('utf-8'))
 
+        n_val = float(request_data['n_val'])
+        p_val = float(request_data['p_val'])
+        k_val = float(request_data['k_val'])
+        temp_val = float(request_data['temp_val'])
+        hum_val = float(request_data['hum_val'])
+        ph_val = float(request_data['ph_val'])
+        rf_val = float(request_data['rf_val'])
+        
+        print(n_val, p_val, k_val, temp_val, hum_val, ph_val, rf_val)
+        features.append(n_val)  # Nitrogen
+        features.append(p_val)  # Phosphorus
+        features.append(k_val)  # Potassium
+        features.append(temp_val) # Temperature
+        features.append(hum_val) # Humidity
+        features.append(ph_val) # Ph
+        features.append(rf_val) # Rainfall
+        final_features = [np.array(features)]
+        prediction = model.predict(final_features)
+        output = prediction[0]
+        response = output.upper()
+        print(response)
 
-    
+        return " "
+        
+    else:
+        print("Sending Values")
+        return jsonify(dict(response=response))
 
-    features.append(float(n_val))  # type: ignore
-    features.append(float(p_val))  # type: ignore
-    features.append(float(k_val))  # type: ignore
-    features.append(float(temp_val)) # type: ignore
-    features.append(float(hum_val)) # type: ignore
-    features.append(float(ph_val)) # type: ignore
-    features.append(float(rf_val)) # type: ignore
-
-    
-    
-    
-    
-    final_features = [np.array(features)]
-    
-    prediction = model.predict(final_features)
-    output = prediction[0]
-
-    return render_template('basic.html', prediction_text='Crop will be {}'.format(output.upper()))
 
 
 
