@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class CropRecommender extends ChangeNotifier {
-  final url = 'http://192.168.135.237:8080/predict';
+  final url = 'https://agro-buddy.herokuapp.com/crop_recommender';
   double? _nVal;
   double? _pVal;
   double? _kVal;

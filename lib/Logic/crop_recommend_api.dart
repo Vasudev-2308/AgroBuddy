@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class Crop {
-  final url = 'http://192.168.135.237:8080/predict';
+  final url = 'https://agro-buddy.herokuapp.com/crop_recommender';
   sendCrop(double nVal, double pVal, double kVal, double tempVal,
       double humidVal, double pHVal, double rainVal) async {
     final request = await http.post(Uri.parse(url),
