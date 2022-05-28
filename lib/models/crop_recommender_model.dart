@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class CropRecommender extends ChangeNotifier {
-  final url = 'http://192.168.0.100:8080/predict';
+  final url = 'http://192.168.135.237:8080/predict';
   double? _nVal;
   double? _pVal;
   double? _kVal;
@@ -48,6 +48,7 @@ class CropRecommender extends ChangeNotifier {
       data = response.body;
       var decoded = jsonDecode(data);
       _cropName = decoded['response'];
+      print(_cropName);
       notifyListeners();
     } catch (e) {
       print(e);

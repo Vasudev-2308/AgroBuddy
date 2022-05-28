@@ -9,12 +9,12 @@ model = pickle.load(open('KNN_model_crop_prediction.pkl', 'rb'))
 
 
 response = ''
-@app.route('/predict', methods=['POST', 'GET'])
+@app.route('/crop_recommender', methods=['POST', 'GET'])
 def predict():
     global response
     features = []
     if request.method == 'POST':
-        print("Got VALUES")
+        # print("Got VALUES")
         request_data = request.data
         request_data = json.loads(request_data.decode('utf-8'))
 
@@ -43,7 +43,7 @@ def predict():
         return " "
         
     else:
-        print("Sending Values")
+        # print("Sending Values")
         return jsonify(dict(response=response))
 
 
