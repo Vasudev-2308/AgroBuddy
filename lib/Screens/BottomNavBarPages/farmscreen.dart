@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:agro_buddy/Models/farm_data_model.dart';
+import 'package:agro_buddy/UI/loading.dart';
 import 'package:agro_buddy/UI/scroll_cards.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -48,12 +49,13 @@ class Farm extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.all(10.0),
-              child: Placeholder(
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.95,
-                  height: MediaQuery.of(context).size.height * 0.4,
-                ),
-              ),
+              child: LoadingWidget()
+              // Placeholder(
+              //   child: SizedBox(
+              //     width: MediaQuery.of(context).size.width * 0.95,
+              //     height: MediaQuery.of(context).size.height * 0.4,
+              //   ),
+              // ),
             ),
             Center(
               child: Text(

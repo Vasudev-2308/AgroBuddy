@@ -82,7 +82,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                 ],
               ),
 
-              Lottie.asset('assets/animations/loading_animation.json')
+              //Lottie.asset('assets/animations/loading_animation.json')
             ]),
           )),
     );
