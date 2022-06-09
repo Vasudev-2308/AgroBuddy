@@ -19,7 +19,6 @@ class _FarmState extends State<Farm> {
   VlcPlayerController controller = VlcPlayerController.network(
     "http://192.168.0.105:8081/",
     hwAcc: HwAcc.full,
-    autoPlay: true,
   );
   bool videoStatus = true;
 

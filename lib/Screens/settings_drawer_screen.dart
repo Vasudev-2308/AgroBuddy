@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:lottie/lottie.dart';
 
@@ -10,12 +12,19 @@ class DrawerWidget extends StatefulWidget {
 }
 
 class _DrawerWidgetState extends State<DrawerWidget> {
-   bool status0 = false;
+  _callExpert() async {
+    const number = "+917090XXXXXX";
+
+    bool? res = await FlutterPhoneDirectCaller.callNumber(number);
+  }
+
+  bool status0 = false;
   bool status1 = false;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Drawer(
+          width: MediaQuery.of(context).size.width * 0.75,
           elevation: 10.0,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
@@ -80,6 +89,49 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                     },
                   ),
                 ],
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              const Divider(
+                thickness: 2,
+                height: 20,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+
+              GestureDetector(
+                onTap: () {
+                  print("Calling Expert");
+                  _callExpert();
+                },
+                child: SizedBox(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        "Call an Expert",
+                        style: TextStyle(fontSize: 15),
+                      ),
+                      Icon(
+                        CupertinoIcons.phone_fill_arrow_right,
+                        color: Colors.green[800],
+                      )
+                    ],
+                  ),
+                ),
+              ),
+
+              const SizedBox(
+                height: 20,
+              ),
+              const Divider(
+                thickness: 2,
+                height: 10,
+              ),
+              const SizedBox(
+                height: 20,
               ),
 
               //Lottie.asset('assets/animations/loading_animation.json')

@@ -1,5 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'package:agro_buddy/UI/loading.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
@@ -35,8 +36,11 @@ class RecommenderScreen extends StatelessWidget {
                   "Crop Recommender",
                   style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                 )),
-            Text(
-              cropName!.isEmpty?"Crop":cropName,
+            cropName!.isEmpty ? Container(
+              width: 90,
+              height: 90,
+              child: LoadingWidget()):Text(
+              cropName,
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 38),
             ),
             Container(
