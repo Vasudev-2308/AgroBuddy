@@ -37,7 +37,7 @@ class RecommenderScreen extends StatelessWidget {
                 )),
             Text(
               cropName!.isEmpty?"Crop":cropName,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 38),
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 38),
             ),
             Container(
               margin: const EdgeInsets.only(left: 20, right: 20),
