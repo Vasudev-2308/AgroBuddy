@@ -163,12 +163,7 @@ class _FarmState extends State<Farm> {
             SizedBox(
               height: 20,
             ),
-            Center(
-              child: Text(
-                "Made with ❤️by Team Agrobuddy",
-                style: TextStyle(color: Colors.grey.shade600),
-              ),
-            )
+            
           ]),
     );
   }

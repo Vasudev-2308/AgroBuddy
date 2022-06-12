@@ -15,7 +15,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
   _callExpert() async {
     const number = "+917090XXXXXX";
 
-    bool? res = await FlutterPhoneDirectCaller.callNumber(number);
+    await FlutterPhoneDirectCaller.callNumber(number);
   }
 
   bool status0 = false;
