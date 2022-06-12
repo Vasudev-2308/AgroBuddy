@@ -16,11 +16,6 @@ class FarmData extends ChangeNotifier {
   var data;
 
   fetchDataFromJson() async {
-//flame_status
-//humidity
-//moisture_status
-//motion_status
-//temperature
     data = await fetchData(host);
     var decoded = jsonDecode(data);
     setTemperature(decoded['temperature']);
