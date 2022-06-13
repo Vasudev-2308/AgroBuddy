@@ -59,8 +59,8 @@ class MoistureandFireCard extends StatelessWidget {
                       color: Colors.white),
                 ),
                 Text(
-                  moistStat ? moistStat1: moistStat2,
-                  style: TextStyle(
+                  moistStat ? moistStat2: moistStat1,
+                  style: const TextStyle(
                       fontSize: 19,
                       fontWeight: FontWeight.w300,
                       color: Colors.white),
@@ -89,7 +89,7 @@ class MoistureandFireCard extends StatelessWidget {
                       color: Colors.white),
                 ),
                 Text(
-                  fireStat ? fireStat2: fireStat1,
+                  fireStat ? fireStat1: fireStat2,
                   style: TextStyle(
                       fontSize: 19,
                       fontWeight: FontWeight.w200,

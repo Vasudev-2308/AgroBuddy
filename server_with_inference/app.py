@@ -1,5 +1,4 @@
 import subprocess
-from typing_extensions import Self
 from flask import Flask, request, Response, render_template
 import RPi.GPIO as GPIO
 import time
@@ -8,21 +7,22 @@ import Adafruit_DHT
 
 class SensorData:
     
-    PIR_input = 11
-    Flame_input = 3
-    Soil_Moisture_pin = 7
+    GPIO.setwarnings(False)
+    GPIO.setmode(GPIO.BCM)
+
+    PIR_input = 17
+    Flame_input = 2
+    Soil_Moisture_pin = 4
     temp_and_humid_Sensor = Adafruit_DHT.DHT11
     temp_pin = 27
-
-    GPIO.setwarnings(False)
-    GPIO.setmode(GPIO.BOARD)
+    
     GPIO.setup(Soil_Moisture_pin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
     GPIO.setup(Flame_input, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
     GPIO.setup(PIR_input, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
     def detect_motion(self):
         if GPIO.input(self.PIR_input):
-            subprocess.call("python videoCapture.py", shell=True)
+            subprocess.call("python inference.py", shell=True)
             return True
 
         # print("Motion Detected")
@@ -32,10 +32,10 @@ class SensorData:
 
     def detect_flame(self):
         if GPIO.input(self.Flame_input):
-            return False
+            return True
         # print("No Flame Detected")
         else:
-            return True
+            return False
         # print("Flame Detected")
 
     def detect_temperature_humidity(self):
@@ -43,14 +43,14 @@ class SensorData:
         if humidity is not None and temperature is not None:
             return temperature, humidity
         else:
-            return None
+            return 0,0
 
     def detect_water(self):
         if GPIO.input(self.Soil_Moisture_pin):
-            return False
+            return True
             # print("No Water Detected")
         else:
-            return True
+            return False
             # print("Water Detected")
 
         # while True:

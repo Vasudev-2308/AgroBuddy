@@ -10,27 +10,36 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child:   Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      // ignore: prefer_const_literals_to_create_immutables
-      children:  [
-        TempandHumidCard(),
-         Container(
-           margin: EdgeInsets.only(left: 30, right: 20),
-           width: MediaQuery.of(context).size.width*0.85,
-           child: Divider(height: 20, thickness: 3, )),
-        Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Text("Farm Updates", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 33),),
-        ),
-        FeedCard(content: "Cow Entered",),
-        FeedCard(content: "All Well",),
-        FeedCard(content: "Watered Plants",),
-        FeedCard(content: "Intrusion Detected",),
-        FeedCard(content: "Intrusion Detected",),
-      ],
-    ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        // ignore: prefer_const_literals_to_create_immutables
+        children: [
+          TempandHumidCard(),
+          Container(
+              margin: EdgeInsets.only(left: 30, right: 20),
+              width: MediaQuery.of(context).size.width * 0.85,
+              child: Divider(
+                height: 20,
+                thickness: 3,
+              )),
+          Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Text(
+              "Farm Updates",
+              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 33),
+            ),
+          ),
+          ListView.builder(
+            shrinkWrap: true,
+            itemCount: 5,
+            itemBuilder: ((context, index) {
+            return FeedCard(
+              content: "Intrusion Detected",
+            );
+          }))
+        ],
+      ),
     );
   }
 }

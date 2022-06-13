@@ -10,7 +10,7 @@ class FeedCard extends StatelessWidget {
       child: TextButton(
         onPressed: null,
         child:  ListTile(
-          leading: const Icon(Icons.location_city),
+          leading: const Icon(Icons.block),
           title: Text(content,
             style: const TextStyle(fontSize: 20),
           ),
