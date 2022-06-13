@@ -44,8 +44,14 @@ class LoadingScreen extends StatelessWidget {
                   style: TextStyle(fontSize: 20),
                 ),
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: ((context) => const HomeScreen())));
+                 Navigator.push(
+  context,
+  PageRouteBuilder(
+    pageBuilder: (c, a1, a2) => const HomeScreen(),
+    transitionsBuilder: (c, anim, a2, child) => FadeTransition(opacity: anim, child: child),
+    transitionDuration: const Duration(milliseconds: 1500),
+  ),
+);
                 },
               ),
             ),

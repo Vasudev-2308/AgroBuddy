@@ -43,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       _selectedIndex = index;
       _pageController!.animateToPage(index,
-          duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
+          duration: Duration(milliseconds: 600), curve: Curves.fastLinearToSlowEaseIn);
     });
   }
 

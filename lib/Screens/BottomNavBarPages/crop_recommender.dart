@@ -44,7 +44,6 @@ class _RecommenderScreenState extends State<RecommenderScreen> {
     hC = TextEditingController();
     phC = TextEditingController();
     rfC = TextEditingController();
-    
   }
 
   @override
@@ -115,7 +114,9 @@ class _RecommenderScreenState extends State<RecommenderScreen> {
                             child: TextFormField(
                               controller: nC,
                               validator: (value) {
-                                if (value!.isNotEmpty &&
+                                if (value!.isEmpty) {
+                                  return 'Cant be Empty';
+                                } else if (value.isNotEmpty &&
                                     double.parse(value) > 100) {
                                   return 'Invalid Value';
                                 } else {
@@ -162,7 +163,9 @@ class _RecommenderScreenState extends State<RecommenderScreen> {
                             child: TextFormField(
                               controller: pC,
                               validator: (value) {
-                                if (value!.isNotEmpty &&
+                                if (value!.isEmpty) {
+                                  return 'Cant be Empty';
+                                } else if (value.isNotEmpty &&
                                     double.parse(value) > 100) {
                                   return 'Invalid Value';
                                 }
@@ -207,7 +210,10 @@ class _RecommenderScreenState extends State<RecommenderScreen> {
                             child: TextFormField(
                               controller: kC,
                               validator: (value) {
-                                if (value!.isNotEmpty &&
+                                if (value!.isEmpty) {
+                                  return 'Cant be Empty';
+                                }
+                                if (value.isNotEmpty &&
                                     double.parse(value) > 100) {
                                   return 'Invalid Value';
                                 }
@@ -260,7 +266,10 @@ class _RecommenderScreenState extends State<RecommenderScreen> {
                             child: TextFormField(
                               controller: tC,
                               validator: (value) {
-                                if (value!.isNotEmpty &&
+                                if (value!.isEmpty) {
+                                  return 'Cant be Empty';
+                                }
+                                if (value.isNotEmpty &&
                                     double.parse(value) >= 100) {
                                   return 'Invalid Value';
                                 }
@@ -305,7 +314,10 @@ class _RecommenderScreenState extends State<RecommenderScreen> {
                             child: TextFormField(
                               controller: hC,
                               validator: (value) {
-                                if (value!.isNotEmpty &&
+                                if (value!.isEmpty) {
+                                  return 'Cant be Empty';
+                                }
+                                if (value.isNotEmpty &&
                                     double.parse(value) > 100) {
                                   return 'Invalid Value';
                                 }
@@ -358,7 +370,10 @@ class _RecommenderScreenState extends State<RecommenderScreen> {
                             child: TextFormField(
                               controller: phC,
                               validator: (value) {
-                                if (value!.isNotEmpty &&
+                                if (value!.isEmpty) {
+                                  return 'Cant be Empty';
+                                }
+                                if (value.isNotEmpty &&
                                     double.parse(value) < 0 &&
                                     double.parse(value) > 14) {
                                   return 'Invalid Value';
@@ -403,6 +418,12 @@ class _RecommenderScreenState extends State<RecommenderScreen> {
                                 left: 15, right: 15, top: 5),
                             child: TextFormField(
                               controller: rfC,
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return "Cant be Empty";
+                                }
+                                return null;
+                              },
                               onChanged: (value) {
                                 setState(() {
                                   rf = double.parse(value);

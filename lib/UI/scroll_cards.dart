@@ -12,8 +12,8 @@ class ScrollCards extends StatelessWidget {
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: const [
-          TempandHumidCard(),
           MoistureandFireCard(),
+          TempandHumidCard(),
         ],
       ),
     );
