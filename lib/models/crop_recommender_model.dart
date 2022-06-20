@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 
 class CropRecommender extends ChangeNotifier {
   final url = 'https://agro-buddy.herokuapp.com/crop_recommender';
+  List<String> crops = [];
   double? _nVal;
   double? _pVal;
   double? _kVal;
@@ -48,6 +49,8 @@ class CropRecommender extends ChangeNotifier {
       data = response.body;
       var decoded = jsonDecode(data);
       _cropName = decoded['response'];
+      if(_cropName!.length>0)
+        crops.add(_cropName!);
       print(_cropName);
       notifyListeners();
     } catch (e) {
