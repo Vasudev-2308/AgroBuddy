@@ -1,27 +1,24 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_switch/flutter_switch.dart';
-import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
 
-class DrawerWidget extends StatefulWidget {
-  const DrawerWidget({Key? key}) : super(key: key);
+import '../Models/toggle_model.dart';
 
-  @override
-  State<DrawerWidget> createState() => _DrawerWidgetState();
-}
+class DrawerWidget extends StatelessWidget {
+   DrawerWidget({Key? key}) : super(key: key);
 
-class _DrawerWidgetState extends State<DrawerWidget> {
-  _callExpert() async {
-    const number = "+917090XXXXXX";
+  // _callExpert() async {
+  //   const number = "+917090XXXXXX";
 
-    await FlutterPhoneDirectCaller.callNumber(number);
-  }
+  //   await FlutterPhoneDirectCaller.callNumber(number);
+  // }
 
-  bool status0 = false;
-  bool status1 = false;
   @override
   Widget build(BuildContext context) {
+  var providerInstance = Provider.of<DrawerStateProvider>(context);
     return SafeArea(
       child: Drawer(
           width: MediaQuery.of(context).size.width * 0.75,
@@ -55,14 +52,13 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                     height: 34.0,
                     valueFontSize: 15.0,
                     toggleSize: 22.0,
-                    value: status0,
+                    value: providerInstance.notifState,
                     borderRadius: 30.0,
                     padding: 8.0,
                     showOnOff: true,
                     onToggle: (val) {
-                      setState(() {
-                        status0 = val;
-                      });
+                      providerInstance.changeNotifState(val);
+                      providerInstance.showNotification(val);
                     },
                   ),
                 ],
@@ -79,13 +75,12 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                     height: 34.0,
                     valueFontSize: 15.0,
                     toggleSize: 22.0,
-                    value: status1,
+                    value: providerInstance.appUpdateState,
                     borderRadius: 30.0,
                     showOnOff: true,
                     onToggle: (val) {
-                      setState(() {
-                        status1 = val;
-                      });
+                      providerInstance.changeAppUpdateState(val);
+                      //providerInstance.showNotification(val);
                     },
                   ),
                 ],
@@ -104,7 +99,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
               GestureDetector(
                 onTap: () {
                   print("Calling Expert");
-                  _callExpert();
+                  //_callExpert();
                 },
                 child: SizedBox(
                   child: Row(
@@ -139,4 +134,8 @@ class _DrawerWidgetState extends State<DrawerWidget> {
           )),
     );
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }

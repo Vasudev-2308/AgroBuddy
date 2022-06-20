@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 import '../Logic/temp_and_humid.dart';
 
@@ -14,6 +15,27 @@ class FarmData extends ChangeNotifier {
 
   // ignore: prefer_typing_uninitialized_variables
   var data;
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
+  void showNotification() async {
+
+    var androidChannel = const AndroidNotificationDetails(
+      'AgroBuddy',
+      'Channel for Notification',
+      icon: 'logo',
+    );
+
+    var iosChannel = const IOSNotificationDetails(
+        presentAlert: true, presentBadge: true, presentSound: true);
+
+    var platformNotifChannel = NotificationDetails(
+      android: androidChannel,
+      iOS: iosChannel,
+    );
+
+    await flutterLocalNotificationsPlugin.show(0, 'AgroBuddy',
+        'Object Entered', platformNotifChannel);
+  }
 
   fetchDataFromJson() async {
     data = await fetchData(host);
@@ -43,6 +65,7 @@ class FarmData extends ChangeNotifier {
 
   void setObjectStatus(bool status) {
     _oE = status;
+    showNotification();
     notifyListeners();
   }
 

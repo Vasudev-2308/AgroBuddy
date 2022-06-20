@@ -16,6 +16,10 @@ class RecommenderScreen extends StatefulWidget {
 }
 
 class _RecommenderScreenState extends State<RecommenderScreen> {
+
+
+
+
   final formKey = GlobalKey<FormState>();
   double? n;
   double? p;
@@ -45,6 +49,9 @@ class _RecommenderScreenState extends State<RecommenderScreen> {
     phC = TextEditingController();
     rfC = TextEditingController();
   }
+
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -135,7 +142,7 @@ class _RecommenderScreenState extends State<RecommenderScreen> {
                                       decimal: true, signed: false),
                               decoration: const InputDecoration(
                                 border: InputBorder.none,
-                                hintText: "0-100",
+                                hintText: "0.0 - 100.0",
                               ),
                             ),
                           ),
@@ -182,7 +189,7 @@ class _RecommenderScreenState extends State<RecommenderScreen> {
                                       decimal: true, signed: false),
                               decoration: const InputDecoration(
                                 border: InputBorder.none,
-                                hintText: "0-100",
+                                hintText: "0.0 - 100.0",
                               ),
                             ),
                           ),
@@ -230,7 +237,7 @@ class _RecommenderScreenState extends State<RecommenderScreen> {
                                       decimal: true, signed: false),
                               decoration: const InputDecoration(
                                 border: InputBorder.none,
-                                hintText: "0-100",
+                                hintText: "0.0 - 100.0",
                               ),
                             ),
                           ),
@@ -286,7 +293,7 @@ class _RecommenderScreenState extends State<RecommenderScreen> {
                                       decimal: true, signed: false),
                               decoration: const InputDecoration(
                                 border: InputBorder.none,
-                                hintText: "0-100℃",
+                                hintText: "0.0 - 100.0℃",
                               ),
                             ),
                           ),
@@ -334,7 +341,7 @@ class _RecommenderScreenState extends State<RecommenderScreen> {
                                       decimal: true, signed: false),
                               decoration: const InputDecoration(
                                 border: InputBorder.none,
-                                hintText: "0-100",
+                                hintText: "0.0 - 100.0",
                               ),
                             ),
                           ),
