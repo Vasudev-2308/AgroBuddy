@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:agro_buddy/Logic/crop_recommend_api.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CropRecommender extends ChangeNotifier {
   final url = 'https://agro-buddy.herokuapp.com/crop_recommender';
@@ -25,6 +26,8 @@ class CropRecommender extends ChangeNotifier {
   double? get rainVal => _rainfall!;
   String? get cropName => _cropName!;
 
+  SharedPreferences? prefs;
+
   fillValues(
       double n, double p, double k, double t, double h, double ph, double r) {
     _nVal = n;
@@ -39,6 +42,7 @@ class CropRecommender extends ChangeNotifier {
   // ignore: prefer_typing_uninitialized_variables
   var data;
   void setCropName() async {
+    prefs = await SharedPreferences.getInstance();
     Crop crop = Crop();
     data = crop.sendCrop(
         _nVal!, _pVal!, kVal!, tempVal!, humidVal!, pHVal!, rainVal!);
@@ -49,8 +53,10 @@ class CropRecommender extends ChangeNotifier {
       data = response.body;
       var decoded = jsonDecode(data);
       _cropName = decoded['response'];
-      if(_cropName!.length>0)
+      if (_cropName!.length > 0) {
         crops.add(_cropName!);
+        prefs!.setStringList('crops_list', crops);
+      }
       print(_cropName);
       notifyListeners();
     } catch (e) {
