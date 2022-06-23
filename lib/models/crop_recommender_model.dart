@@ -53,14 +53,17 @@ class CropRecommender extends ChangeNotifier {
       data = response.body;
       var decoded = jsonDecode(data);
       _cropName = decoded['response'];
-      if (_cropName!.length > 0) {
+      if (_cropName!.isNotEmpty) {
         crops.add(_cropName!);
         prefs!.setStringList('crops_list', crops);
       }
       print(_cropName);
       notifyListeners();
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
     }
   }
+
+  //Provider Handling Notifications
+
 }

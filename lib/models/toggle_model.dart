@@ -1,3 +1,4 @@
+import 'package:agro_buddy/Services/notification_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -5,7 +6,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 class DrawerStateProvider extends ChangeNotifier {
   bool _notifState = false;
   bool _appUpdateState = false;
-  
+
+  FlutterNotificationService notificationService = FlutterNotificationService();
+
   bool get notifState => _notifState;
   bool get appUpdateState => _appUpdateState;
 
@@ -25,26 +28,7 @@ class DrawerStateProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void showNotification(bool val) async {
-    FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-    String status = val == true ? "ON" : "OFF";
-
-    var androidChannel = const AndroidNotificationDetails(
-      'AgroBuddy',
-      'Channel for Notification',
-      icon: 'logo',
-    );
-
-    var iosChannel = const IOSNotificationDetails(
-        presentAlert: true, presentBadge: true, presentSound: true);
-
-    var platformNotifChannel = NotificationDetails(
-      android: androidChannel,
-      iOS: iosChannel,
-      
-    );
-
-    await flutterLocalNotificationsPlugin.show(0, 'AgroBuddy',
-        'Push Notifications Turned ${status}', platformNotifChannel);
+  showNotification(bool val) {
+    notificationService.showNotification(val, "Push Notifications Turned On");
   }
 }

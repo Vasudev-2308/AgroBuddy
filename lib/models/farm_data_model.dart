@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:agro_buddy/Services/notification_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
@@ -12,30 +13,12 @@ class FarmData extends ChangeNotifier {
   bool? _oE = false;
   bool? _fS = false;
   bool? _mS = false;
+  String? _objectName;
 
   // ignore: prefer_typing_uninitialized_variables
   var data;
-  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
-  void showNotification() async {
-
-    var androidChannel = const AndroidNotificationDetails(
-      'AgroBuddy',
-      'Channel for Notification',
-      icon: 'logo',
-    );
-
-    var iosChannel = const IOSNotificationDetails(
-        presentAlert: true, presentBadge: true, presentSound: true);
-
-    var platformNotifChannel = NotificationDetails(
-      android: androidChannel,
-      iOS: iosChannel,
-    );
-
-    await flutterLocalNotificationsPlugin.show(0, 'AgroBuddy',
-        'Object Entered', platformNotifChannel);
-  }
+  FlutterNotificationService flutterNotificationService =
+      FlutterNotificationService();
 
   fetchDataFromJson() async {
     data = await fetchData(host);
@@ -45,6 +28,7 @@ class FarmData extends ChangeNotifier {
     setfireStatus(decoded['flame_status']);
     setMoistureStatus(decoded['moisture_status']);
     setObjectStatus(decoded['motion_status']);
+    _objectName = decoded['object'].toString().toUpperCase();
   }
 
   double get temperature => _temp!;
@@ -65,12 +49,17 @@ class FarmData extends ChangeNotifier {
 
   void setObjectStatus(bool status) {
     _oE = status;
-    showNotification();
+    if (_oE!) {
+      flutterNotificationService.showNotification(_oE!, "Object Detected : $_objectName");
+    }
     notifyListeners();
   }
 
   void setfireStatus(bool status) {
     _fS = status;
+    if (_fS!) {
+      flutterNotificationService.showNotification(_fS!, "Fire Detected");
+    }
     notifyListeners();
   }
 
