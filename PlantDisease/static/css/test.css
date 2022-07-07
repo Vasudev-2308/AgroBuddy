@@ -1,0 +1,42 @@
+.loader {
+    border: 8px solid #f3f3f3; /* Light grey */
+    border-top: 8px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+#b1  {
+
+  background-image:linear-gradient(rgba(38, 40, 38, 0.82),rgba(20, 56, 10, 0.82),rgba(38, 135, 9, 0.82),rgba(126, 230, 96, 0.82)), url(download_1.jpeg);
+  background-size:cover;
+  background-position: center;
+  margin-top: 0px;
+
+}
+.foot
+{
+
+    background-color: #222222;
+    color:white;
+    margin-top:300px;
+    margin-bottom:0px;
+    padding-top:30px;
+    padding-bottom: 30px;
+    padding-left:0px;
+    text-align:center;
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-right: 0px;
+
+    bottom: 0;
+    width: 100%;
+
+
+}
+.
